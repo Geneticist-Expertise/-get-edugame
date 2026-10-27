@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b50">
+  <meta name="description" content="GET EduGames — تجربة تعليمية تفاعلية في علم الوراثة والطفرات والسلامة الحيوية وعلوم المختبرات الطبية.">
+  <title>GET EduGames | Geneticist Expertise Team</title>
+  <style>
+    :root {
+      --navy: #102b50;
+      --blue: #2866a0;
+      --pale: #edf4fb;
+      --ink: #20334a;
+      --muted: #617186;
+      --white: #fff;
+      --line: #dce6f0;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Tahoma, sans-serif;
+      background: #f6f8fc;
+      color: var(--ink);
+      line-height: 1.8;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(1080px, 92%);
+      margin: auto;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      text-decoration: none;
+      font-weight: bold;
+      color: var(--navy);
+    }
+
+    .brand img {
+      width: 66px;
+      height: 66px;
+      object-fit: contain;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    .language {
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 7px 13px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #102b50, #204e7e);
+      color: white;
+      padding: 64px 0 58px;
+      text-align: center;
+    }
+
+    .hero-logo {
+      width: 112px;
+      height: 112px;
+      object-fit: contain;
+      background: white;
+      border-radius: 24px;
+      padding: 9px;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow {
+      color: #c7ddf5;
+      letter-spacing: 2px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 56px);
+      line-height: 1.2;
+      margin: 10px 0;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 15px auto;
+      color: #e1ecf8;
+      padding: 0 8px;
+    }
+
+    .tagline {
+      font-weight: bold;
+      font-size: 19px;
+      margin-top: 22px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: transform .15s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button.primary {
+      background: white;
+      color: var(--navy);
+    }
+
+    .button.secondary {
+      border: 1px solid #c7ddf5;
+      color: white;
+    }
+
+    main { padding: 42px 0; }
+
+    section { margin-bottom: 42px; }
+
+    .section-title {
+      text-align: center;
+      color: var(--navy);
+      font-size: 27px;
+      margin: 0 0 8px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 24px;
+    }
+
+    .about {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .card .number {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      background: var(--pale);
+      color: var(--blue);
+      border-radius: 12px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .card h3 {
+      color: var(--navy);
+      margin: 4px 0;
+      font-size: 19px;
+    }
+
+    .card p {
+      margin: 5px 0;
+      color: var(--muted);
+    }
+
+    .english-name {
+      direction: ltr;
+      text-align: right;
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--blue);
+    }
+
+    .notice {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-right: 5px solid #d49a35;
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    .notice h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+    }
+
+    .notice p { margin: 0; }
+
+    .team {
+      text-align: center;
+      background: var(--pale);
+      padding: 28px 18px;
+      border-radius: 18px;
+    }
+
+    .team img {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    .team h3 { color: var(--navy); margin: 4px 0; }
+
+    .team p { margin: 3px 0; }
+
+    .motto {
+      color: var(--blue);
+      font-weight: bold;
+      font-size: 19px;
+    }
+
+    footer {
+      background: var(--navy);
+      color: #e1ecf8;
+      text-align: center;
+      padding: 24px 12px;
+    }
+
+    footer img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      background: white;
+      border-radius: 12px;
+      padding: 5px;
+    }
+
+    footer p { margin: 5px 0; }
+
+    @media (max-width: 600px) {
+      .nav { align-items: center; }
+      .brand img { width: 52px; height: 52px; }
+      .brand { font-size: 14px; gap: 9px; }
+      .brand small { font-size: 10px; }
+      .hero { padding: 42px 0; }
+      .hero-logo { width: 90px; height: 90px; }
+      .grid { grid-template-columns: 1fr; }
+      .about { padding: 20px; }
+      .button { width: 100%; max-width: 310px; }
+      .actions { align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <img src="get-logo.png" alt="شعار مبادرة خبراء الوراثة">
+        <span>
+          GET EduGames
+          <small>Geneticist Expertise Team</small>
+        </span>
+      </a>
+      <a class="language" href="#english">English</a>
+    </div>
+  </header>
+
+  <div id="top" class="hero">
+    <div class="container">
+      <img class="hero-logo" src="get-logo.png" alt="Geneticist Expertise Team logo">
+      <div class="eyebrow">GENETICIST EXPERTISE TEAM · EST. 2014</div>
+      <h1>GET EduGames</h1>
+      <p>تجربة تعليمية تفاعلية تجمع بين المعرفة العلمية واللعب والاستكشاف.</p>
+      <p>اكتشف مفاهيم علمية في الوراثة والطفرات والسلامة الحيوية وعلوم المختبرات الطبية من خلال أربعة مسارات تعليمية.</p>
+      <div class="tagline">From Science… to Impact</div>
+      <div class="actions">
+        <a class="button primary" href="get-edugames-engine-ar.html">🎮 ابدأ اللعب بالعربية</a>
+        <a class="button secondary" href="get-edugames-engine-en.html">Play in English →</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section>
+      <h2 class="section-title">عن المشروع</h2>
+      <p class="section-intro">التعلّم العلمي بأسلوب تفاعلي أقرب إلى اهتمامات الجيل الرقمي.</p>
+      <div class="about">
+        <p><strong>GET EduGames</strong> مشروع تعليمي رقمي من مبادرة <strong>Geneticist Expertise Team (GET)</strong>، يهدف إلى دعم التعلّم الذاتي والتوعية العلمية من خلال ألعاب تفاعلية تربط المفاهيم بالأسئلة والتحديات.</p>
+        <p>تستهدف التجربة الطلبة والخريجين والشباب والمهتمين بالعلوم الحيوية والوراثة والمختبرات، وتعمل عبر متصفح الويب على الأجهزة المتوافقة.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">اكتشف المسارات الأربعة</h2>
+      <p class="section-intro">أربعة مسارات تعليمية في النسخة التجريبية.</p>
+      <div class="grid">
+        <article class="card">
+          <div class="number">01</div>
+          <div class="english-name">GENOME RUN</div>
+          <h3>الحمض النووي وعلم الوراثة</h3>
+          <p>مفاهيم أساسية حول DNA والمعلومات الوراثية.</p>
+        </article>
+        <article class="card">
+          <div class="number">02</div>
+          <div class="english-name">MUTATION LAB</div>
+          <h3>الطفرات والتغيّرات الجينية</h3>
+          <p>التعرّف إلى أنواع الطفرات وتأثيراتها الأساسية.</p>
+        </article>
+        <article class="card">
+          <div class="number">03</div>
+          <div class="english-name">BIOSAFETY BAY</div>
+          <h3>السلامة الحيوية</h3>
+          <p>مفاهيم تمهيدية حول ممارسات السلامة في المختبر.</p>
+        </article>
+        <article class="card">
+          <div class="number">04</div>
+          <div class="english-name">LAB LOGIC</div>
+          <h3>علوم المختبرات الطبية</h3>
+          <p>مفاهيم أساسية في جودة العمل والممارسة المخبرية.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">تنويه مهم</h2>
+      <div class="notice">
+        <h3>نسخة تجريبية — Pilot Version</h3>
+        <p>هذه التجربة مخصّصة للتعلّم والتوعية العلمية، والمحتوى قيد المراجعة والتطوير. لا تُعد اللعبة برنامجًا تدريبيًا معتمدًا أو أداة لتقييم الكفاءة المهنية أو مرجعًا للتشخيص أو اتخاذ القرارات الطبية. وفي موضوعات السلامة الحيوية وعلوم المختبرات، يجب الالتزام بإجراءات المؤسسة المعتمدة والتدريب والإشراف المختص.</p>
+      </div>
+    </section>
+
+    <section id="english" lang="en" dir="ltr">
+      <h2 class="section-title">About GET EduGames</h2>
+      <div class="about">
+        <p><strong>GET EduGames</strong> is an interactive educational project by Geneticist Expertise Team (GET). It explores foundational concepts in genetics, mutations, laboratory biosafety, and medical laboratory science through game-based learning.</p>
+        <p>This pilot version is intended for educational awareness. Its content is under review and development. It is not an accredited training program, professional competency assessment, or source for medical decisions.</p>
+        <div class="actions">
+          <a class="button" style="background:#102b50;color:#fff" href="get-edugames-engine-en.html">Play the English Version</a>
+          <a class="button" style="background:#edf4fb;color:#102b50" href="get-edugames-engine-ar.html">اللعبة العربية</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="team">
+      <img src="get-logo.png" alt="شعار Geneticist Expertise Team">
+      <h3>Geneticist Expertise Team (GET)</h3>
+      <p>مبادرة علمية وشبابية تطوعية أردنية</p>
+      <p>تأسست عام 2014</p>
+      <p class="motto">From Science… to Impact</p>
+      <p>من العلم… إلى الأثر</p>
+    </section>
+  </main>
+
+  <footer>
+    <img src="get-logo.png" alt="GET logo">
+    <p><strong>Geneticist Expertise Team</strong></p>
+    <p>GET EduGames · Pilot Version · Established 2014</p>
+    <p>From Science… to Impact | من العلم… إلى الأثر</p>
+  </footer>
+</body>
+</html>
