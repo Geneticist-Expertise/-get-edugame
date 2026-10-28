@@ -6728,8 +6728,14 @@ function jump() {
 
   function showQuestion(data) {
     var q = data.question;
-    ui.currentQuestion = data;
-    ui.questionLocked = false;
+    
+ui.currentQuestion = data;
+ui.questionLocked = false;
+
+if (window.GETAudio) {
+  window.GETAudio.question();
+}
+
     $("q-difficulty").textContent = GET.i18n.difficulty(q.difficulty);
     $("q-difficulty").setAttribute("data-level", q.difficulty);
     $("q-points").textContent = "+" + GET.i18n.t("common.points", { n: q.points });
