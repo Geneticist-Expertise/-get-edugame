@@ -16,11 +16,14 @@
   <script>
     /* Default locale is Arabic for the Arabic-primary build. A saved choice wins; a build flag can override the default. */
     window.GET_DEFAULT_LOCALE = "ar";
-    try {
-      var saved = JSON.parse(localStorage.getItem("get-edugames-v1") || "null");
-      if (saved && saved.settings && (saved.settings.language === "ar" || saved.settings.language === "en")) {
-        window.GET_DEFAULT_LOCALE = saved.settings.language;
-      }
+    
+try {
+  localStorage.removeItem("get-edugames-v1");
+} catch (e) {}
+
+window.GET_DEFAULT_LOCALE = "ar";
+document.documentElement.lang = "ar";
+document.documentElement.dir = "rtl";
     } catch (e) { /* storage may be unavailable */ }
     document.documentElement.lang = window.GET_DEFAULT_LOCALE;
     document.documentElement.dir = window.GET_DEFAULT_LOCALE === "ar" ? "rtl" : "ltr";
