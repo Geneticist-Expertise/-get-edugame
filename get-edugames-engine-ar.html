@@ -6766,8 +6766,29 @@ if (window.GETAudio) {
     }, 60);
   }
 
-  function showAnswer(result) {
-    ui.questionLocked = true;
+  
+function showAnswer(result) {
+  ui.questionLocked = true;
+  if (window.GETAudio) {
+    if (result.selectedOption === result.correctOption) {
+      window.GETAudio.correct();
+    } else {
+      window.GETAudio.wrong();
+    }
+  }
+  var buttons = $("q-options").querySelectorAll(".q-option");
+  buttons.forEach(function (btn) {
+    btn.disabled = true;
+    var id = btn.getAttribute("data-opt");
+    var mark = btn.querySelector(".opt-mark");
+    if (id === result.correctOption) {
+      btn.classList.add("is-correct");
+      if (mark) mark.textContent = "✓";
+    }
+  });
+  // اترك بقية كود الدالة الأصلي كما هو
+}
+
     var buttons = $("q-options").querySelectorAll(".q-option");
     buttons.forEach(function (btn) {
       btn.disabled = true;
