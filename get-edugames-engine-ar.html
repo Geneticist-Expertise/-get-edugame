@@ -4550,11 +4550,17 @@ window.GET_UI_STRINGS.en = {
     state.right = value;
     if (value) state.left = false;
   }
-  function jump() {
-    if (!enabled) return;
-    state.jumpQueued = 0.14;
-    state.jumpHeld = true;
+  
+function jump() {
+  if (!enabled) return;
+  state.jumpQueued = 0.14;
+  state.jumpHeld = true;
+
+  if (window.GETAudio) {
+    window.GETAudio.jump();
   }
+}
+
   function releaseJump() {
     state.jumpHeld = false;
   }
