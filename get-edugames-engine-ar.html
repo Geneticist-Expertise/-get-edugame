@@ -7102,5 +7102,287 @@ window.GET_UI_STRINGS.en = {
 })();
 
 </script>
+
+<script>
+(() => {
+  let audioContext = null;
+  let musicOn = false;
+  let effectsOn = true;
+  let musicTimer = null;
+  let noteIndex = 0;
+
+  const melody = [
+    261.63, 329.63, 392.00, 329.63,
+    293.66, 349.23, 440.00, 349.23
+  ];
+
+  // تهيئة نظام الصوت عند تفاعل اللاعب
+  function audioReady() {
+    const AudioContextClass =
+      window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContextClass) return false;
+
+    if (!audioContext) {
+      audioContext = new AudioContextClass();
+    }
+
+    if (audioContext.state === "suspended") {
+      audioContext.resume();
+    }
+
+    return true;
+  }
+
+  // توليد نغمة إلكترونية دون ملفات صوتية
+  function tone(
+    frequency,
+    duration = 0.12,
+    type = "sine",
+    volume = 0.05,
+    delay = 0
+  ) {
+    if (!audioReady()) return;
+
+    const startTime = audioContext.currentTime + delay;
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.type = type;
+
+    oscillator.frequency.setValueAtTime(
+      frequency,
+      startTime
+    );
+
+    gain.gain.setValueAtTime(0.001, startTime);
+
+    gain.gain.exponentialRampToValueAtTime(
+      Math.max(volume, 0.001),
+      startTime + 0.015
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      startTime + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start(startTime);
+    oscillator.stop(startTime + duration + 0.03);
+  }
+
+  // المؤثرات الصوتية الخاصة باللعبة
+  function playEffect(name) {
+    if (!effectsOn) return;
+
+    switch (name) {
+      case "jump":
+        tone(520, 0.09, "triangle", 0.045);
+        break;
+
+      case "question":
+        tone(660, 0.12, "sine", 0.05);
+        tone(880, 0.16, "sine", 0.045, 0.12);
+        break;
+
+      case "correct":
+        tone(523, 0.12, "triangle", 0.06);
+        tone(659, 0.12, "triangle", 0.06, 0.12);
+        tone(784, 0.20, "triangle", 0.06, 0.24);
+        break;
+
+      case "wrong":
+        tone(220, 0.20, "triangle", 0.05);
+        tone(185, 0.22, "triangle", 0.04, 0.16);
+        break;
+
+      case "levelComplete":
+        [523, 659, 784, 1047].forEach((frequency, index) => {
+          tone(
+            frequency,
+            0.25,
+            "triangle",
+            0.06,
+            index * 0.14
+          );
+        });
+        break;
+
+      case "start":
+        tone(392, 0.12, "sine", 0.05);
+        tone(523, 0.18, "sine", 0.05, 0.13);
+        break;
+    }
+  }
+
+  // إيقاف الموسيقى الخلفية
+  function stopMusic() {
+    if (musicTimer !== null) {
+      clearInterval(musicTimer);
+      musicTimer = null;
+    }
+  }
+
+  // تشغيل موسيقى إلكترونية متكررة
+  function startMusic() {
+    if (!audioReady()) return;
+
+    stopMusic();
+    musicOn = true;
+    noteIndex = 0;
+
+    function playNote() {
+      if (!musicOn || !audioContext) return;
+
+      tone(
+        melody[noteIndex % melody.length],
+        0.28,
+        "sine",
+        0.018
+      );
+
+      noteIndex++;
+    }
+
+    playNote();
+    musicTimer = setInterval(playNote, 360);
+
+    updateButtons();
+  }
+
+  function toggleMusic() {
+    if (musicOn) {
+      musicOn = false;
+      stopMusic();
+    } else {
+      startMusic();
+    }
+
+    updateButtons();
+  }
+
+  function toggleEffects() {
+    effectsOn = !effectsOn;
+    updateButtons();
+  }
+
+  // تحديث نصوص أزرار التحكم
+  function updateButtons() {
+    const musicButton =
+      document.getElementById("get-music-toggle");
+
+    const effectsButton =
+      document.getElementById("get-effects-toggle");
+
+    if (musicButton) {
+      musicButton.textContent =
+        "🎵 الموسيقى: " + (musicOn ? "تشغيل" : "إيقاف");
+    }
+
+    if (effectsButton) {
+      effectsButton.textContent =
+        "🔊 المؤثرات: " + (effectsOn ? "تشغيل" : "إيقاف");
+    }
+  }
+
+  // إنشاء لوحة التحكم
+  function addControls() {
+    if (document.getElementById("get-audio-controls")) {
+      return;
+    }
+
+    const panel = document.createElement("div");
+
+    panel.id = "get-audio-controls";
+
+    panel.style.cssText = [
+      "position:fixed",
+      "bottom:12px",
+      "right:12px",
+      "z-index:99999",
+      "display:flex",
+      "gap:8px",
+      "flex-wrap:wrap",
+      "padding:8px",
+      "border-radius:12px",
+      "background:rgba(15,23,42,.94)",
+      "box-shadow:0 4px 16px rgba(0,0,0,.2)"
+    ].join(";");
+
+    const buttonStyle = [
+      "padding:10px 12px",
+      "border:0",
+      "border-radius:8px",
+      "cursor:pointer",
+      "font-size:13px",
+      "font-weight:600",
+      "touch-action:manipulation"
+    ].join(";");
+
+    const musicButton = document.createElement("button");
+
+    musicButton.id = "get-music-toggle";
+    musicButton.type = "button";
+    musicButton.textContent = "🎵 الموسيقى: إيقاف";
+    musicButton.style.cssText = buttonStyle;
+
+    musicButton.addEventListener("click", () => {
+      toggleMusic();
+    });
+
+    const effectsButton = document.createElement("button");
+
+    effectsButton.id = "get-effects-toggle";
+    effectsButton.type = "button";
+    effectsButton.textContent = "🔊 المؤثرات: تشغيل";
+    effectsButton.style.cssText = buttonStyle;
+
+    effectsButton.addEventListener("click", () => {
+      audioReady();
+      toggleEffects();
+
+      if (effectsOn) {
+        playEffect("start");
+      }
+    });
+
+    panel.append(musicButton, effectsButton);
+    document.body.appendChild(panel);
+  }
+
+  // واجهة عامة لربط الأصوات بأحداث اللعبة لاحقًا
+  window.GETAudio = {
+    jump: () => playEffect("jump"),
+    question: () => playEffect("question"),
+    correct: () => playEffect("correct"),
+    wrong: () => playEffect("wrong"),
+    levelComplete: () => playEffect("levelComplete"),
+    start: () => playEffect("start"),
+
+    playMusic: startMusic,
+
+    stopMusic: () => {
+      musicOn = false;
+      stopMusic();
+      updateButtons();
+    },
+
+    toggleEffects
+  };
+
+  // إنشاء لوحة التحكم بعد تحميل الصفحة
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      addControls
+    );
+  } else {
+    addControls();
+  }
+})();
+</script>
 </body>
 </html>
