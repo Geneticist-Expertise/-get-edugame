@@ -7203,17 +7203,17 @@ window.GET_UI_STRINGS.en = {
         [523, 659, 784, 1047].forEach((frequency, index) => {
           tone(
             frequency,
-            0.25,
+            0.5,
             "triangle",
-            0.06,
+            0.6,
             index * 0.14
           );
         });
         break;
 
       case "start":
-        tone(392, 0.12, "sine", 0.05);
-        tone(523, 0.18, "sine", 0.05, 0.13);
+        tone(392, 0.4, "sine", 0.5);
+        tone(523, 0.4, "sine", 0.5, 0.5);
         break;
     }
   }
@@ -7239,9 +7239,9 @@ window.GET_UI_STRINGS.en = {
 
       tone(
         melody[noteIndex % melody.length],
-        0.28,
+        0.48,
         "sine",
-        0.018
+        0.06
       );
 
       noteIndex++;
